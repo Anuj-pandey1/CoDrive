@@ -1,4 +1,5 @@
 import express from "express";
+import Friend from "../models/FriendSchema.js";
 import Route from "../models/RouteSchema.js";
 
 const router = express.Router();
@@ -17,6 +18,21 @@ router.get("/:friend_userid", (req, res) => {
       res.send(data);
     }
   });
+});
+
+router.post("/sendRequest", async (req, res) => {
+  let reqdata = req.body;
+  let dummy_userid = "1234";
+  const friend = new Friend({
+    user_id: dummy_userid,
+    user_id_friend: reqdata.user_id,
+  });
+  try {
+    const savedData = await friend.save();
+    res.json(savedData);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
 });
 
 export default router;

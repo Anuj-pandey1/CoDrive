@@ -4,10 +4,26 @@ import { useState } from "react";
 const Friend_Request = () => {
   const [SearchUserid, setSearchUserid] = useState("");
   const [FoundUserid, setFoundUserid] = useState({});
+  const [FriendRequest, setFriendRequest] = useState("Send Friend Request");
   const handleClick = () => {
     fetch(`http://localhost:8100/friend_request/${SearchUserid}`)
       .then((response) => response.json())
       .then((data) => setFoundUserid(data))
+      .catch((error) => console.error(error));
+  };
+
+  const handleFriendRequest = () => {
+    setFriendRequest("Friend request sent!");
+    console.log(FoundUserid.user_id);
+    fetch("http://localhost:8100/friend_request/sendRequest", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(FoundUserid),
+    })
+      .then((response) => response.json())
+      .then((data) => console.log(data))
       .catch((error) => console.error(error));
   };
 
@@ -92,8 +108,9 @@ const Friend_Request = () => {
                               <button
                                 type="button"
                                 class="btn btn-primary flex-grow-1"
+                                onClick={handleFriendRequest}
                               >
-                                Send Friend Request
+                                {FriendRequest}
                               </button>
                             </div>
                           </div>
