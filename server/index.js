@@ -20,9 +20,11 @@ app.use(urlencoded({ extended: true })); // decode url if encoded
 
 //importing routes
 import location_formRoute from "./Routes/location_form.mjs";
+import friend_requestRoute from "./Routes/friend_request.mjs";
 
 //using routes
 app.use("/location_form", location_formRoute);
+app.use("/friend_request", friend_requestRoute);
 
 app.get("/", (req, res) => {
   res.send("hello world");

@@ -3,7 +3,14 @@ import { useState } from "react";
 
 const Friend_Request = () => {
   const [SearchUserid, setSearchUserid] = useState("");
-  const handleClick = () => {};
+  const [FoundUserid, setFoundUserid] = useState({});
+  const handleClick = () => {
+    fetch(`http://localhost:8100/friend_request/${SearchUserid}`)
+      .then((response) => response.json())
+      .then((data) => setFoundUserid(data))
+      .catch((error) => console.error(error));
+  };
+
   return (
     <div>
       <div className="d-flex justify-content-center mt-5">
@@ -28,46 +35,72 @@ const Friend_Request = () => {
           </button>
         </div>
       </div>
+
       <section>
         <div class="container py-5 h-100">
           <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col col-md-9 col-lg-7 col-xl-5">
               <div class="card">
                 <div class="card-body p-4">
-                  <div class="d-flex text-black">
-                    <div class="flex-grow-1 ms-3">
-                      <h5 class="mb-1">Danny McLoan</h5>
-                      <p class="mb-2 pb-1">Senior Journalist</p>
-                      <div class="d-flex justify-content-start rounded-3 p-2 mb-2">
-                        <div>
-                          <p class="small text-muted mb-1">Articles</p>
-                          <p class="mb-0">41</p>
+                  {(() => {
+                    if (FoundUserid.data_exist == false) {
+                      return (
+                        <div class="d-flex text-black">
+                          <div class="flex-grow-1 ms-3">
+                            <h5 class="mb-1">
+                              No user with the searched username found
+                            </h5>
+                          </div>
                         </div>
-                        <div class="px-3">
-                          <p class="small text-muted mb-1">Followers</p>
-                          <p class="mb-0">976</p>
+                      );
+                    } else if (FoundUserid.travel_type == null) {
+                      return (
+                        <div class="d-flex text-black">
+                          <div class="flex-grow-1 ms-3">
+                            <h5 class="mb-1">Please search id</h5>
+                          </div>
                         </div>
-                        <div>
-                          <p class="small text-muted mb-1">Rating</p>
-                          <p class="mb-0">8.5</p>
+                      );
+                    } else {
+                      return (
+                        <div class="d-flex text-black">
+                          <div class="flex-grow-1 ms-3">
+                            <h5 class="mb-1">Name</h5>
+                            <p class="mb-2 pb-1">Contact</p>
+                            <p class="mb-2 pb-1">Email</p>
+                            {/* <div class="d-flex justify-content-start rounded-3 p-2 mb-2">
+                          <div>
+                            <p class="small text-muted mb-1">Articles</p>
+                            <p class="mb-0">41</p>
+                          </div>
+                          <div class="px-3">
+                            <p class="small text-muted mb-1">Followers</p>
+                            <p class="mb-0">976</p>
+                          </div>
+                          <div>
+                            <p class="small text-muted mb-1">Rating</p>
+                            <p class="mb-0">8.5</p>
+                          </div>
+                        </div> */}
+                            <div class="d-flex pt-1">
+                              <button
+                                type="button"
+                                class="btn btn-outline-primary me-1 flex-grow-1"
+                              >
+                                Chat
+                              </button>
+                              <button
+                                type="button"
+                                class="btn btn-primary flex-grow-1"
+                              >
+                                Send Friend Request
+                              </button>
+                            </div>
+                          </div>
                         </div>
-                      </div>
-                      <div class="d-flex pt-1">
-                        <button
-                          type="button"
-                          class="btn btn-outline-primary me-1 flex-grow-1"
-                        >
-                          Chat
-                        </button>
-                        <button
-                          type="button"
-                          class="btn btn-primary flex-grow-1"
-                        >
-                          Follow
-                        </button>
-                      </div>
-                    </div>
-                  </div>
+                      );
+                    }
+                  })()}
                 </div>
               </div>
             </div>

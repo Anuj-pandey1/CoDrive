@@ -15,7 +15,7 @@ router.post("/", async (req, res) => {
     { lat: reqdata.destination.lat, lng: reqdata.destination.lon },
   ];
   const route = new Route({
-    userid: dummy_userid,
+    user_id: dummy_userid,
     travel_type: reqdata.travel_type,
     waypoints: wp,
     seats: "",
