@@ -24,6 +24,9 @@ import location_formRoute from "./Routes/location_form.mjs";
 //using routes
 app.use("/location_form", location_formRoute);
 
+app.get("/", (req, res) => {
+  res.send("hello world");
+});
 Connection();
 
 app.listen(PORT, () => console.log("Listening at post PORT 8100"));
