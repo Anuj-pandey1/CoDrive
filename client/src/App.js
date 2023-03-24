@@ -1,23 +1,14 @@
-import logo from './logo.svg';
-import './App.css';
+import Location_Form from "./components/Location_Form";
+import Friend_Request from "./components/Friend_Request";
+import { Routes, Route } from "react-router-dom";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Routes>
+        <Route path="/Location_Form" element={<Location_Form />} />
+        <Route path="/Friend_Request" element={<Friend_Request />} />
+      </Routes>
     </div>
   );
 }
