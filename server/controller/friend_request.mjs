@@ -1,7 +1,7 @@
 import express from "express";
-import Friend from "../models/FriendSchema.js";
-import Route from "../models/RouteSchema.js";
-import FriendAccepted from "../models/FriendAcceptedScheme.js";
+import Friend from "../model/FriendSchema.js";
+import Route from "../model/RouteSchema.js";
+import FriendAccepted from "../model/FriendAcceptedScheme.js";
 
 const router = express.Router();
 

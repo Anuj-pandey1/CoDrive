@@ -1,5 +1,5 @@
 import express from "express";
-import Route from "../models/RouteSchema.js";
+import Route from "../model/RouteSchema.js";
 
 const router = express.Router();
 
