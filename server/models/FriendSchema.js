@@ -7,6 +7,9 @@ const FriendSchema = new mongoose.Schema({
   user_id_friend: {
     type: String,
   },
+  status: {
+    type: String,
+  },
 });
 
 const friend = mongoose.model("Friend", FriendSchema);

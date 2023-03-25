@@ -5,8 +5,9 @@ const Friend_Request = () => {
   const [SearchUserid, setSearchUserid] = useState("");
   const [FoundUserid, setFoundUserid] = useState({});
   const [FriendRequest, setFriendRequest] = useState("Send Friend Request");
+  const [DisableBtn, setDisableBtn] = useState(false);
   const handleClick = () => {
-    fetch(`http://localhost:8100/friend_request/${SearchUserid}`)
+    fetch(`http://localhost:8100/friend_request/userid/${SearchUserid}`)
       .then((response) => response.json())
       .then((data) => setFoundUserid(data))
       .catch((error) => console.error(error));
@@ -14,6 +15,7 @@ const Friend_Request = () => {
 
   const handleFriendRequest = () => {
     setFriendRequest("Friend request sent!");
+    setDisableBtn(true);
     console.log(FoundUserid.user_id);
     fetch("http://localhost:8100/friend_request/sendRequest", {
       method: "POST",
@@ -106,6 +108,7 @@ const Friend_Request = () => {
                                 Chat
                               </button>
                               <button
+                                disabled={DisableBtn}
                                 type="button"
                                 class="btn btn-primary flex-grow-1"
                                 onClick={handleFriendRequest}
