@@ -1,24 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
-
+import './App.css'; 
+import { Desk } from './pages/Desk';
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import AccountProvider from './context/AccountProvider'; 
+import {BrowserRouter,Routes,Route} from 'react-router-dom'
+import { InfoDrawer } from './components/drawer/InfoDrawer'; 
 function App() {
+  const clientId =
+    "851115207315-ffolu07jdpq965qoabrn3nube0ol4v7m.apps.googleusercontent.com";
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <GoogleOAuthProvider clientId={clientId}>
+      <AccountProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Desk />} />
+            {/* <Route path="/chat" element={<ChatDialogComplete />} /> */}
+            <Route path="/profile" element={<InfoDrawer open={true}/>} />
+          </Routes>
+        </BrowserRouter>
+        {/* <Messenger /> */}
+      </AccountProvider>
+    </GoogleOAuthProvider>
   );
 }
 
