@@ -1,0 +1,33 @@
+body {
+    margin: 0px;
+    width: 100vw;
+  }
+  
+  #root {
+    height: 100%;
+  }
+  
+  .map {
+    height: 100vh;
+  }
+  
+  video {
+    width: 100%;
+  }
+  
+  .message-form {
+    z-index: 999;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    max-width: 300px;
+  }
+  
+  .thanks-form {
+    z-index: 999;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    max-width: 220px;
+  }
+  

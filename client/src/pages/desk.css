@@ -1,0 +1,10 @@
+.container {
+    display: flex;
+}
+
+.mapcontainer{
+    width: 70vw;
+}
+.sidecontainer{
+    width: 30vw;
+}
