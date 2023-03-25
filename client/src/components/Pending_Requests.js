@@ -68,6 +68,7 @@ const Pending_Requests = () => {
                             type="button"
                             class="btn btn-primary flex-grow-1"
                             onClick={() => handleFriendRequest(item._id)}
+                            disabled={accept[item._id] ? true : false}
                           >
                             {accept[item._id] || "Accept"}
                           </button>
