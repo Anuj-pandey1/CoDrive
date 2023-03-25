@@ -82,6 +82,8 @@ export const LoginDialog=()=>{
           <Box>
             <QRCode src={qrCodeImage} alt='qr-code'></QRCode>
             <Box>
+            const userString = localStorage.getItem('user');
+            console.log(userString);
                 <GoogleLogin 
                 onSuccess={onLoginSuccess}
                 onError={onLoginError}
