@@ -2,7 +2,6 @@ import express from "express";
 import Friend from "../models/FriendSchema.js";
 import Route from "../models/RouteSchema.js";
 import FriendAccepted from "../models/FriendAcceptedScheme.js";
-import friendAccepted from "../models/FriendAcceptedScheme.js";
 
 const router = express.Router();
 
@@ -11,45 +10,23 @@ router.get("/userid/:friend_userid", (req, res) => {
   const name = req.params.friend_userid;
   //add in else if if we are searching for the same user and chaange
   const query = { user_id: name };
-
-  //   const query1 = {
-  //     $or: [
-  //         {
-  //           $and: [
-  //             { $or: [
-  //               { user_id: name },
-  //               { friend_user_id: dummy_userid }
-  //             ]},
-  //             { status: "accepted" }
-  //           ]
-  //         },
-  //         {
-  //             $and: [
-  //                 { $or: [
-  //                   { user_id: name },
-  //                   { friend_user_id: dummy_userid }
-  //                 ]},
-  //                 { status: "accepted" }
-  //               ]
-  //         }
-  //       ]
-  //   };
-  //   Friend.find(query1, (err, data) => {
-  //     if (err) {
-  //       console.log("Error retrieving data", err);
-  //       res.sendStatus(500);
-  //     } else if (!data) {
-  //       res.status(404).send({ data_exist: false });
-  //     } else {
-  //       res.send(data);
-  //     }
-  //   });
-
-  Route.findOne(query, (err, data) => {
+  const query1 = { user_id: dummy_userid, friends: { user_id_friend: name } };
+  let nodata = false;
+  FriendAccepted.findOne(query1, (err, data) => {
     if (err) {
       console.log("Error retrieving data", err);
       res.sendStatus(500);
     } else if (!data) {
+    } else {
+      nodata = true;
+    }
+  });
+  if (dummy_userid === name) nodata = true;
+  Route.findOne(query, (err, data) => {
+    if (err) {
+      console.log("Error retrieving data", err);
+      res.sendStatus(500);
+    } else if (!data || nodata === true) {
       res.status(404).send({ data_exist: false });
     } else {
       res.send(data);
