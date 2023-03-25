@@ -10,7 +10,8 @@ const View_Friends = () => {
         "http://localhost:8100/friend_request/getFriends"
       );
       const data = await response.json();
-      setData(data);
+      setData(data.friends);
+      console.log(data.friends);
     };
     fetchData();
   }, []);
@@ -51,7 +52,7 @@ const View_Friends = () => {
                   <div class="card-body p-4">
                     <div class="d-flex text-black">
                       <div class="flex-grow-1 ms-3">
-                        <h5 class="mb-1">{item.user_id}</h5>
+                        <h5 class="mb-1">{item.user_id_friend}</h5>
                         <p class="mb-2 pb-1">Contact</p>
                         <p class="mb-2 pb-1">Email</p>
                         <div class="d-flex pt-1">

@@ -1,13 +1,50 @@
 import express from "express";
 import Friend from "../models/FriendSchema.js";
 import Route from "../models/RouteSchema.js";
+import FriendAccepted from "../models/FriendAcceptedScheme.js";
+import friendAccepted from "../models/FriendAcceptedScheme.js";
 
 const router = express.Router();
 
 router.get("/userid/:friend_userid", (req, res) => {
+  let dummy_userid = "1234";
   const name = req.params.friend_userid;
-  //add in else if if we are searching for the same user and chaange the
+  //add in else if if we are searching for the same user and chaange
   const query = { user_id: name };
+
+  //   const query1 = {
+  //     $or: [
+  //         {
+  //           $and: [
+  //             { $or: [
+  //               { user_id: name },
+  //               { friend_user_id: dummy_userid }
+  //             ]},
+  //             { status: "accepted" }
+  //           ]
+  //         },
+  //         {
+  //             $and: [
+  //                 { $or: [
+  //                   { user_id: name },
+  //                   { friend_user_id: dummy_userid }
+  //                 ]},
+  //                 { status: "accepted" }
+  //               ]
+  //         }
+  //       ]
+  //   };
+  //   Friend.find(query1, (err, data) => {
+  //     if (err) {
+  //       console.log("Error retrieving data", err);
+  //       res.sendStatus(500);
+  //     } else if (!data) {
+  //       res.status(404).send({ data_exist: false });
+  //     } else {
+  //       res.send(data);
+  //     }
+  //   });
+
   Route.findOne(query, (err, data) => {
     if (err) {
       console.log("Error retrieving data", err);
@@ -52,15 +89,33 @@ router.get("/pendingRequests", (req, res) => {
 });
 
 router.post("/acceptRequest", (req, res) => {
-  let filter = { _id: req.body.id };
-  let update = { status: "accepted" };
-  Friend.findOneAndUpdate(filter, update)
+  let dummy_userid = "1234";
+  const options = {
+    upsert: true,
+  };
+  console.log(req.body.id);
+  let filter = { user_id: dummy_userid };
+  let update = { $push: { friends: { user_id_friend: req.body.id } } };
+  //   Friend.findOneAndUpdate({ _id: req.body._id }, { status: "accepted" })
+  //     .then(() => {})
+  //     .catch((err) => {
+  //       res.status(500).send("Error updating friends");
+  //     });
+
+  Friend.deleteOne({ _id: req.body._id }, function (err) {
+    if (err) {
+      console.error(err);
+      res.status(500).send("Error deleting document");
+    } else {
+    }
+  });
+  FriendAccepted.findOneAndUpdate(filter, update, options)
     .then(() => {
-      res.send("friend request updated");
+      res.send("friend added");
     })
     .catch((err) => {
       console.error(err);
-      res.status(500).send("Error updating friend request");
+      res.status(500).send("Error updating friends");
     });
 });
 
@@ -68,14 +123,14 @@ router.get("/getFriends", (req, res) => {
   let dummy_userid = "1234";
 
   const query = {
-    $or: [{ user_id: dummy_userid }, { user_id_friend: dummy_userid }],
-    status: "accepted",
+    user_id: dummy_userid,
   };
-  Friend.find(query, (err, data) => {
+  FriendAccepted.findOne(query, (err, data) => {
     if (err) {
       console.log("Error retrieving data", err);
       res.sendStatus(500);
     } else if (!data) {
+      console.log("no data");
       res.status(404).send({ data_exist: false });
     } else {
       res.send(data);
@@ -84,16 +139,20 @@ router.get("/getFriends", (req, res) => {
 });
 
 router.post("/removeFriend", (req, res) => {
-  let filter = { _id: req.body.id };
-  Friend.deleteOne(filter, function (err) {
-    if (err) {
+  let dummy_userid = "1234";
+  let filter = { user_id: dummy_userid };
+  let update = { $pull: { friends: { _id: req.body.id } } };
+  const options = {
+    upsert: true,
+  };
+  FriendAccepted.findOneAndUpdate(filter, update, options)
+    .then(() => {
+      res.send("friend added");
+    })
+    .catch((err) => {
       console.error(err);
-      res.status(500).send("Error deleting document");
-    } else {
-      console.log("Document deleted successfully!");
-      res.send("Document deleted successfully");
-    }
-  });
+      res.status(500).send("Error updating friends");
+    });
 });
 
 export default router;

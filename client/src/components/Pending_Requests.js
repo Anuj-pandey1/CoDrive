@@ -6,10 +6,10 @@ const Pending_Requests = () => {
   const [accept, setAccept] = useState({});
   //   const [accept, setAccept] = useState("Accept");
 
-  const handleFriendRequest = (id) => {
+  const handleFriendRequest = (item) => {
     setAccept({
       ...accept,
-      [id]: "Accepted",
+      [item._id]: "Accepted",
     });
 
     fetch("http://localhost:8100/friend_request/acceptRequest", {
@@ -17,7 +17,7 @@ const Pending_Requests = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ id: id }),
+      body: JSON.stringify({ id: item.user_id, _id: item._id }),
     })
       .then((response) => response.json())
       .then((data) => console.log(data))
@@ -65,7 +65,7 @@ const Pending_Requests = () => {
                           <button
                             type="button"
                             class="btn btn-primary flex-grow-1"
-                            onClick={() => handleFriendRequest(item._id)}
+                            onClick={() => handleFriendRequest(item)}
                             disabled={accept[item._id] ? true : false}
                           >
                             {accept[item._id] || "Accept"}
