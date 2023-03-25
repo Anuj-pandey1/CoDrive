@@ -1,18 +1,28 @@
 import React from "react";
 import { useState, useEffect } from "react";
 
-const Pending_Requests = () => {
+const View_Friends = () => {
   const [data, setData] = useState([]);
-  const [accept, setAccept] = useState({});
-  //   const [accept, setAccept] = useState("Accept");
+  const [remove, setRemove] = useState({});
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(
+        "http://localhost:8100/friend_request/getFriends"
+      );
+      const data = await response.json();
+      setData(data);
+    };
+    fetchData();
+  }, []);
 
-  const handleFriendRequest = (id) => {
-    setAccept({
-      ...accept,
-      [id]: "Accepted",
+  const handleRemoveFriend = (id) => {
+    console.log("removing");
+    setRemove({
+      ...remove,
+      [id]: "Removed",
     });
 
-    fetch("http://localhost:8100/friend_request/acceptRequest", {
+    fetch("http://localhost:8100/friend_request/removeFriend", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -24,22 +34,11 @@ const Pending_Requests = () => {
       .catch((error) => console.error(error));
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch(
-        "http://localhost:8100/friend_request/pendingRequests"
-      );
-      const data = await response.json();
-      setData(data);
-    };
-    fetchData();
-  }, []);
-
   return (
     <div>
       <div className="d-flex justify-content-center mt-5 mb-4">
         <div class="input-group w-50 d-flex justify-content-center align-items-center">
-          <h2>These are your pending friend requests</h2>
+          <h2>These are your friends</h2>
         </div>
       </div>
 
@@ -65,10 +64,10 @@ const Pending_Requests = () => {
                           <button
                             type="button"
                             class="btn btn-primary flex-grow-1"
-                            onClick={() => handleFriendRequest(item._id)}
-                            disabled={accept[item._id] ? true : false}
+                            onClick={() => handleRemoveFriend(item._id)}
+                            disabled={remove[item._id] ? true : false}
                           >
-                            {accept[item._id] || "Accept"}
+                            {remove[item._id] || "Remove"}
                           </button>
                         </div>
                       </div>
@@ -84,4 +83,4 @@ const Pending_Requests = () => {
   );
 };
 
-export default Pending_Requests;
+export default View_Friends;

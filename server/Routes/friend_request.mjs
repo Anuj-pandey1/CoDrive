@@ -64,4 +64,36 @@ router.post("/acceptRequest", (req, res) => {
     });
 });
 
+router.get("/getFriends", (req, res) => {
+  let dummy_userid = "1234";
+
+  const query = {
+    $or: [{ user_id: dummy_userid }, { user_id_friend: dummy_userid }],
+    status: "accepted",
+  };
+  Friend.find(query, (err, data) => {
+    if (err) {
+      console.log("Error retrieving data", err);
+      res.sendStatus(500);
+    } else if (!data) {
+      res.status(404).send({ data_exist: false });
+    } else {
+      res.send(data);
+    }
+  });
+});
+
+router.post("/removeFriend", (req, res) => {
+  let filter = { _id: req.body.id };
+  Friend.deleteOne(filter, function (err) {
+    if (err) {
+      console.error(err);
+      res.status(500).send("Error deleting document");
+    } else {
+      console.log("Document deleted successfully!");
+      res.send("Document deleted successfully");
+    }
+  });
+});
+
 export default router;
