@@ -36,3 +36,35 @@
       transform: rotate(360deg);
     }
   }
+.navbar {
+    height: 50px;
+    background-color: rgba(10, 17, 243, 0.749);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.logo {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.list {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.listItem {
+    margin-right: 30px; /* reduce the margin */
+    font-weight: 470;
+    cursor: pointer;
+}
+
+.link {
+    color: inherit;
+    text-decoration: none;
+}
