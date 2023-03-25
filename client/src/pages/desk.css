@@ -1,10 +1,13 @@
 .container {
     display: flex;
+    margin: 0px;
 }
-
+.leftpanel{
+    width: 20vw;
+}
 .mapcontainer{
-    width: 70vw;
+    width: 60vw;
 }
 .sidecontainer{
-    width: 30vw;
+    width: 20vw;
 }

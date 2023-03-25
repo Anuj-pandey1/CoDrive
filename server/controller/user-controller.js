@@ -9,7 +9,7 @@ try{
 let exist=await User.findOne({sub:request.body.sub});
 if(exist)
 {
-    response.status(200).json({msg:'user already exist'});
+    response.status(200).json(exist);
     return;
 }
 const newUser=new User(request.body);

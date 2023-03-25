@@ -11,6 +11,7 @@ export function getDistanceFromLatlng(waypoints) {
   for (let i = 1; i < waypoints.length; i++) {
     
     const origin = waypoints[i-1], destination = waypoints[i];
+    // console.log(origin, destination);
     var lon1 = toRadian(origin.lng),
       lat1 = toRadian(origin.lat),
       lon2 = toRadian(destination.lng),

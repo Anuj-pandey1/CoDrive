@@ -1,6 +1,6 @@
    
 
-
+import './app.css'
 import { Desk } from "./pages/Desk";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import AccountProvider from "./context/AccountProvider";

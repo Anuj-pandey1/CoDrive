@@ -12,7 +12,7 @@ const Pending_Requests = () => {
       [item._id]: "Accepted",
     });
 
-    fetch("http://localhost:8100/friend_request/acceptRequest", {
+    fetch("http://localhost:8000/friend_request/acceptRequest", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -27,7 +27,7 @@ const Pending_Requests = () => {
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(
-        "http://localhost:8100/friend_request/pendingRequests"
+        "http://localhost:8000/friend_request/pendingRequests"
       );
       const data = await response.json();
       setData(data);
