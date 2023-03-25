@@ -5,6 +5,7 @@ import { getDistanceFromLatAndlng, getDistanceFromLatlng, sortFromLatAndlng, sor
 import axios from "axios";
 import { AccountContext } from "../../context/AccountProvider";
 import { addPoolRequest, addWaypoints, } from "../../service/api";
+import { getAllRequest } from "../../service/api";
 
 
 
@@ -48,14 +49,18 @@ export default function Request({ routes, driving, str, end }) {
         }
     }, [routes,driving]);
 
-    // useEffect(()=>{
-    //     addAllRequest(); 
-    // },[])
+    useEffect(()=>{
+        addAllRequest(); 
+        console.log('dsc')
+    },[])
 
-    // const addAllRequest=async()=>{
-    //     const data = await getAllRequest();
-    //     setAllRequest(data);
-    // }
+    const addAllRequest=async()=>{
+        var x = localStorage.getItem('user_id');
+        const data = await getAllRequest(x);
+        // console.log(data)
+        console.log(data);
+        setAllRequest(data);
+    }
 
 
 

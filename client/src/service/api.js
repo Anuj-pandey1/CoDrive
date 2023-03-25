@@ -64,9 +64,10 @@ export const addPoolRequest=async (data)=>{
     }
     }
   
-  export const getAllRequest=async (user_id) => {
+  export const getAllRequest=async (id) => {
     try{
-      let response = await axios.get(`${url}/allrequest/${user_id}`);
+      let response = await axios.post(`${url}/allrequest`,{user_id : id});
+      console.log(response)
       return response;
     }
     catch(error)

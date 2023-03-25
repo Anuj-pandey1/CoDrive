@@ -4,7 +4,7 @@ import { useContext, useState } from "react";
 import { AccountContext } from "../context/AccountProvider";
 import L from 'leaflet';
 import "./desk.css";
-import Mylocation from "../components/mylocation/Mylocation"
+import Mylocation from "../components/mylocation/Mylocation";
 
 // import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
 

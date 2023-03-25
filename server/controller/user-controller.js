@@ -95,3 +95,14 @@ export const getRoute = async (request, response) => {
     response.status(500).json(error.message);
   }
 }; 
+
+export const getAllRequest = async (request, response) => {
+
+  try {
+    const exist=await route.findMany({reciever_id : request.body.user_id});
+    if(exist)
+        return response.status(200).json(exist);
+    } catch (error) {
+    response.status(500).json(error.message);
+  }
+};

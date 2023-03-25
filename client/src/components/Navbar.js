@@ -1,6 +1,6 @@
 import {Link} from "react-router-dom";
 
-const x = JSON.parse(localStorage.getItem('user'));
+var x = JSON.parse(localStorage.getItem('user'));
 if (x) {
 console.log(x.name);
 }
@@ -26,7 +26,7 @@ const Navbar = () => {
             Requests
           </Link>
           <Link reloadDocument className="link" to="/">
-            {x.name}
+            {x ? (x.name):("")}
           </Link>
         {/* <ul className="list">
             <li className="listItem">Friends</li>
