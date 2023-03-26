@@ -55,11 +55,12 @@ export default function Request({ routes, driving, str, end }) {
     },[])
 
     const addAllRequest=async()=>{
-        var x = localStorage.getItem('user_id');
-        const data = await getAllRequest(x);
+        var x = localStorage.getItem('my_id');
+        const data = await getAllRequest({"user_id":x});
         // console.log(data)
         console.log(data);
-        setAllRequest(data);
+
+        setAllRequest(data.data);
     }
 
 
@@ -105,8 +106,9 @@ export default function Request({ routes, driving, str, end }) {
     }
 
     const handleClickAccept = async (data) => {
+        console.log(data);
         const details = { "route_id": data.route_id }
-        const res = await addWaypoints(data);
+        const res = await addWaypoints(details);
         console.log(res);
     }
 

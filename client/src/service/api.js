@@ -60,18 +60,17 @@ export const addPoolRequest=async (data)=>{
       return x;
     }
     catch(error){
-    console.log('Error while addPoolRequest API',error.message);
+    console.log('Error while addWaypoints API',error.message);
     }
     }
   
-  export const getAllRequest=async (id) => {
-    try{
-      let response = await axios.post(`${url}/allrequest`,{user_id : id});
-      console.log(response)
-      return response;
-    }
-    catch(error)
-    {
-        console.log("Error while getUsers API", error.message);
-    }
-}
+    export const getAllRequest=async (data)=>{
+      try{
+        const x = await axios.post(`${url}/allrequest`,data);
+        console.log(x);
+        return x;
+      }
+      catch(error){
+      console.log('Error while addPoolRequest API',error.message);
+      }
+      }
