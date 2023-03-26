@@ -79,7 +79,7 @@ const Location_Form = () => {
   //sending fetch post request to backend
   const handleSubmit = (event) => {
     event.preventDefault();
-    fetch("http://localhost:8100/location_form", {
+    fetch("http://localhost:8000/location_form", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -98,7 +98,6 @@ const Location_Form = () => {
         <label for="exampleInputPassword1" class="form-label">
           You are travelling as a:
         </label>
-
         <div class="form-check">
           <input
             class="form-check-input"
@@ -113,7 +112,6 @@ const Location_Form = () => {
             Driver
           </label>
         </div>
-
         <div class="form-check">
           <input
             class="form-check-input"
@@ -135,6 +133,7 @@ const Location_Form = () => {
               type="text"
               value={staddress}
               onChange={sthandleInputChange}
+              required
             />
             <ul className="address-dropdown__suggestions">
               {stsuggestions.map((suggestion, index) => (
@@ -152,6 +151,7 @@ const Location_Form = () => {
               type="text"
               value={deaddress}
               onChange={dehandleInputChange}
+              required
             />
             <ul className="address-dropdown__suggestions">
               {desuggestions.map((suggestion, index) => (
@@ -162,6 +162,29 @@ const Location_Form = () => {
             </ul>
           </div>
         </div>
+        <h5> Fill in these optional details:</h5>
+
+        <div>
+          Time of arrival at start location:
+          <div>
+            <input
+              type="time"
+              // value={}
+              // onChange={}
+            />
+          </div>
+        </div>
+        <div>
+          Time of arrival at destination:
+          <div>
+            <input
+              type="time"
+              // value={}
+              // onChange={}
+            />
+          </div>
+        </div>
+        <br />
         <button type="submit" class="btn btn-primary">
           Submit
         </button>

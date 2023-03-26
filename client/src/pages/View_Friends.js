@@ -7,7 +7,7 @@ const View_Friends = () => {
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(
-        "http://localhost:8100/friend_request/getFriends"
+        "http://localhost:8000/friend_request/getFriends"
       );
       const data = await response.json();
       setData(data.friends);
@@ -23,7 +23,7 @@ const View_Friends = () => {
       [id]: "Removed",
     });
 
-    fetch("http://localhost:8100/friend_request/removeFriend", {
+    fetch("http://localhost:8000/friend_request/removeFriend", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
