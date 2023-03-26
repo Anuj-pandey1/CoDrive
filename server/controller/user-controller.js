@@ -5,11 +5,11 @@ import User from "../model/User.js"
 
 export const addUser=async (request,response)=>{
 try{
-  console.log(request.body);
+  // console.log(request.body);
 let exist=await User.findOne({sub:request.body.sub});
 if(exist)
 {
-    response.status(200).json({msg:'user already exist'});
+    response.status(200).json(exist);
     return;
 }
 const newUser=new User(request.body);
@@ -46,12 +46,16 @@ export const addPoolRequest=async (request,response)=>{
 }
 
 export const acceptPoolRequest=async (request,response)=>{
+  // console.log(request.body)
   try{ 
-      const x = await PoolRequest.findOne({_id : request.body.route_id});
+      const x = await PoolRequest.findOne({route_id : request.body.route_id});
       if(x){
+        console.log(x.waypoints);
+        // console.log(' ');
         try{
-          const data = route.updateOne({_id : x.route_id}, { $push :{ waypoints: {$each: [x.waypoints] }} });
-          console.log(data);
+          const data = route.update({_id : x.route_id}, { $push :{ "waypoints": {$each: [x.waypoints] }} });
+          // console.log(data);
+          response.status(200).json(data);
         }catch(error){
           response.status(500).json(error.message);
         }
@@ -95,3 +99,17 @@ export const getRoute = async (request, response) => {
     response.status(500).json(error.message);
   }
 }; 
+
+export const getAllRequest = async (request, response) => {
+  // console.log(request.body)
+  try {
+    const exist=await PoolRequest.find({reciever_id : request.body.user_id});
+    
+    // console.log(request.body)
+    if(exist)
+        return response.status(200).json(exist);
+        return response.status(200).json({});
+    } catch (error) {
+    response.status(500).json(error.message);
+  }
+};

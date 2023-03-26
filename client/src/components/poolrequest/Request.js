@@ -5,20 +5,18 @@ import { getDistanceFromLatAndlng, getDistanceFromLatlng, sortFromLatAndlng, sor
 import axios from "axios";
 import { AccountContext } from "../../context/AccountProvider";
 import { addPoolRequest, addWaypoints, } from "../../service/api";
+import { getAllRequest } from "../../service/api";
 
 
 
 
-export default function Request({ routes, driving }) {
+
+export default function Request({ routes, driving, str, end }) {
 
     const { account } = useContext(AccountContext);
 
     const [frndRoute, setFrndRoute] = useState([]);
     const [allRequests, setAllRequest] = useState([]);
-
-    const myLatLng1 = { lat: 23.1608938, lng: 79.9497702 };
-    const myLatLng2 = { lat: 23.1608938, lng: 79.9497702 };
-
     const isFeasible = (waypoints, myLatLng1, myLatLng2) => {
         sortFromLatlng(waypoints);
         var x1 = getDistanceFromLatlng(waypoints);
@@ -32,28 +30,38 @@ export default function Request({ routes, driving }) {
         return 0;
 
     }
-
+    
     useEffect(() => {
-        if (routes) {
+        // setFrndRoute([]); 
+        // console.log(driving);
+        // console.log(str, end);
+        if (routes && !driving) {
+            setFrndRoute([]);
             routes.forEach((data) => {
-                if (isFeasible(data.waypoints, myLatLng1, myLatLng2)) {
-                    frndRoute.push(data);
-                    // console.log(frndRoute);
+                if (isFeasible(data.waypoints, str, end)) { 
+                    setFrndRoute([...frndRoute, data])
                     // console.log(frndRoute);
                     // handleAddressSearch(data.waypoints[0]);
-                }
+                } 
+                console.log(frndRoute);
+                
             });
         }
-    }, [routes]);
+    }, [routes,driving]);
 
-    // useEffect(()=>{
-    //     addAllRequest(); 
-    // },[])
+    useEffect(()=>{
+        addAllRequest(); 
+        console.log('dsc')
+    },[])
 
-    // const addAllRequest=async()=>{
-    //     const data = await getAllRequest();
-    //     setAllRequest(data);
-    // }
+    const addAllRequest=async()=>{
+        var x = localStorage.getItem('my_id');
+        const data = await getAllRequest({"user_id":x});
+        // console.log(data)
+        console.log(data);
+
+        setAllRequest(data.data);
+    }
 
 
 
@@ -79,27 +87,29 @@ export default function Request({ routes, driving }) {
     //         </div>
     //     )
     //   };
-
+    
     const handleClickRequest = async (data) => {
+         
+        const x = localStorage.getItem('my_id');
         const details = {
-            "sender_id": "29470",
+            "sender_id": x,
             "reciever_id": data.user_id,
             "route_id": data._id,
-            "waypoints": [myLatLng1, myLatLng2],
+            "waypoints": [str, end],
             "seats": 1,
             "static": 0,
             "time": "",
             "misc": ""
         };
-
         const res = await addPoolRequest(details);
         console.log(res);
     }
 
     const handleClickAccept = async (data) => {
-        // const details = { "route_id": data.route_id }
-        // const res = await addWaypoints(data);
-        // console.log(res);
+        console.log(data);
+        const details = { "route_id": data.route_id }
+        const res = await addWaypoints(details);
+        console.log(res);
     }
 
     return (
@@ -108,8 +118,7 @@ export default function Request({ routes, driving }) {
                 {frndRoute && frndRoute.map((o) => (
                     <div className="chatOnlineFriend" onClick={() => handleClickRequest(o)}>
                         <p>{o.user_id} </p>
-
-                        <img src="car icon.png" alt="car logo" />
+                        <button onClick={() => handleClickRequest(o)}>Send request</button>
                         {/* <HandleAddressSearch latlng={o.waypoints} /> */}
                         </div>
                         ))}
@@ -118,8 +127,7 @@ export default function Request({ routes, driving }) {
                         {allRequests && allRequests.map((o) => (
                             <div className="chatOnlineFriend" onClick={() => handleClickAccept(o)}>
                                 <p>{o.sender_id} </p>
-        
-                                <img src="car icon.png" alt="car logo"  />
+                                <button onClick={()=>{}}>Accept request</button>
                                 {/* <HandleAddressSearch latlng={o.waypoints} /> */}
         
                             </div> 

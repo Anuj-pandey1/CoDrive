@@ -3,7 +3,7 @@ import axios from 'axios';
 const url = "http://localhost:8000";
 export const addUser=async (data)=>{
 try{
-  await axios.post(`${url}/add`,data);
+  return await axios.post(`${url}/add`,data);
 }
 catch(error){
 console.log('Error while addUser API',error.message);
@@ -60,17 +60,17 @@ export const addPoolRequest=async (data)=>{
       return x;
     }
     catch(error){
-    console.log('Error while addPoolRequest API',error.message);
+    console.log('Error while addWaypoints API',error.message);
     }
     }
   
-  export const getAllRequest=async (user_id) => {
-    try{
-      let response = await axios.get(`${url}/allrequest/${user_id}`);
-      return response;
-    }
-    catch(error)
-    {
-        console.log("Error while getUsers API", error.message);
-    }
-}
+    export const getAllRequest=async (data)=>{
+      try{
+        const x = await axios.post(`${url}/allrequest`,data);
+        console.log(x);
+        return x;
+      }
+      catch(error){
+      console.log('Error while addPoolRequest API',error.message);
+      }
+      }

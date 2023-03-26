@@ -1,6 +1,5 @@
-   
-
-
+import "./app.css";
+import Navbar from "./components/Navbar";
 import { Desk } from "./pages/Desk";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import AccountProvider from "./context/AccountProvider";
@@ -18,6 +17,15 @@ function App() {
   return (
     <GoogleOAuthProvider clientId={clientId}>
       <AccountProvider>
+
+      <BrowserRouter>
+      <div>
+        <Navbar/>
+        <Routes>
+          <Route path="/"/>
+        </Routes>
+      </div>
+    </BrowserRouter>
        
       <BrowserRouter>
        

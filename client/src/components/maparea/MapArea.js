@@ -15,12 +15,10 @@ const maps = {
 
 const locations = {start : "" ,mid1 : "" , mid2 : "" ,destination : "" };
 
-export const MapArea = ({routes, setRoutes})=> {
+export const MapArea = ({routes, setRoutes, str, end})=> {
 
   const [map, setMap] = useState(null);
   const [center, setCenter] = useState([37.0902, -95.7129]);
-  const [start, setStart] = useState([38.9072, -77.0369])
-  const [end, setEnd] = useState([37.7749, -122.4194])
   
   
   function LocationMarker() {
@@ -42,14 +40,8 @@ export const MapArea = ({routes, setRoutes})=> {
 
   const findRoute =  async() =>{
     const data = await getRoute();
-    setRoutes(data.data);
-    
-    // console.log(data.data);
-
+    setRoutes(data.data); 
   } 
-
-
- 
  
 
     return (
@@ -61,17 +53,7 @@ export const MapArea = ({routes, setRoutes})=> {
         style={{ height: "100vh", width: "100%", padding: 0 }}
         whenCreated={map => setMap(map)}
       >
-      <LocationMarker/>
-        {/* *************** */}
-        {/* Pass in our custom control layer here, inside of the map container */}
-        {/* *************** */}
-        {/* {routes && routes.forEach((route) => {
-          <RoutineMachine 
-          position={'topleft'} 
-          waypoints = {route.waypoints}
-          color={'#757de8'} 
-        />
-        })} */}
+      <LocationMarker/> 
 
       {routes && routes.map((route) => (
         <RoutineMachine 

@@ -1,5 +1,5 @@
 import { Dialog,Typography,Box,List,ListItem,styled} from "@mui/material"
-import { qrCodeImage } from "../../constants/data.js";
+import { qrCodeImage, caricon } from "../../constants/data.js";
 import { useContext } from "react";
 import { AccountContext } from "../../context/AccountProvider.js";
 import {GoogleLogin} from '@react-oauth/google'
@@ -13,15 +13,10 @@ const Container = styled(Box)`
 padding:56px 0 56px 56px;
 `;
 
-const QRCode=styled('img')`
-height:264;
-width:264;
-margin:50px 0 0 50px;
-`
 const Title = styled(Typography)`
   font-size: 26px;
   margin-bottom: 25px;
-  color: #525252;
+  color: #FFF444;
   font-family: Segoe UI, Helvetica Neue, Helvetica, Lucida Grande, Arial, Ubuntu,
     Cantarell, Fira Sans, sans-serif;
   font-weight: 300;
@@ -57,10 +52,10 @@ export const LoginDialog=()=>{
     const onLoginSuccess=async (res)=>{
      const decoded =jwt_decode(res.credential);
      localStorage.setItem('user', JSON.stringify(decoded));
-     setAccount(decoded);
-     console.log(JSON.stringify(decoded));
+     setAccount(decoded); 
 
-     await addUser(decoded);
+     const x = await addUser(decoded);
+     localStorage.setItem('my_id',x.data._id);
     }
 
     const onLoginError=(res)=>{
@@ -69,24 +64,11 @@ export const LoginDialog=()=>{
     return (
       <Dialog open={true} PaperProps={{ sx: dialogStyle }}>
         <Component>
-          <Container>
-            <Title>To us WhatsApp on Your Computer</Title>
-            <StyledList>
-              <ListItem>1. Open WhatsApp on your phone</ListItem>
-              <ListItem>2. Tap Menu Settings and select WhatsApp Web</ListItem>
-              <ListItem>
-                3. Point your phone to this screen to capture the code
-              </ListItem>
-            </StyledList>
-          </Container>
           <Box>
-            <QRCode src={qrCodeImage} alt='qr-code'></QRCode>
-            <Box>
-                <GoogleLogin 
-                onSuccess={onLoginSuccess}
-                onError={onLoginError}
-                />
-            </Box>
+            <GoogleLogin 
+              onSuccess={onLoginSuccess}
+              onError={onLoginError}
+            />
           </Box>
         </Component>
       </Dialog>

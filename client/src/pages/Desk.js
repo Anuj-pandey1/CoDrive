@@ -4,6 +4,7 @@ import { useContext, useState } from "react";
 import { AccountContext } from "../context/AccountProvider";
 import L from 'leaflet';
 import "./desk.css";
+import Mylocation from "../components/mylocation/Mylocation";
 
 // import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
 
@@ -37,18 +38,23 @@ export const Desk = ()=>{
 const {account}=useContext(AccountContext);
 
 const [routes, setRoutes] = useState(null);
+const [str, setStr] = useState(null);
+const [end, setEnd] = useState(null);
+const [driving, setDriving] = useState(1);
 
 return (
   <Component>
     {account ? (
       <> 
-
         <div className="container">
+        <div className="leftpanel">
+          <Mylocation setStr={setStr} setEnd={setEnd} setDriving={setDriving} str={str} end={end} /> 
+        </div>
           <div className="mapcontainer">
-            <MapArea routes={routes} setRoutes={setRoutes}/>
+            <MapArea routes={routes} setRoutes={setRoutes} str={str} end={end}/>
           </div>
           <div className="sidecontainer">
-            <Request routes={routes} />
+            <Request routes={routes}  str={str} end={end} driving={driving}/>
           </div>
         </div>
         
