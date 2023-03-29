@@ -15,8 +15,8 @@ CoDrive aims to solve several problems for road travelers, such as reducing trav
 ## Contributors:
 
 1. -[Anuj Pandey](https://github.com/Anuj-Pandey1)
-2. -[Kopal Jain](https://github.com/kopal)
-3. -[Krishna Jalan](https://github.com/krishna)
+2. -[Kopal Jain](https://github.com/kopaljain03)
+3. -[Krishna Jalan](https://github.com/krishna1214186)
 4. -[Risheek Verma](https://github.com/https://github.com/risheekv)
 
 ## Overview
