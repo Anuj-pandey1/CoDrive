@@ -2,7 +2,7 @@ import "./app.css";
 import Navbar from "./components/Navbar";
 import { Desk } from "./pages/Desk";
 import { GoogleOAuthProvider } from "@react-oauth/google";
-import AccountProvider from "./context/AccountProvider";
+import AccountProvider from "./context/AccountProvider.js";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { InfoDrawer } from "./components/drawer/InfoDrawer";
 import Location_Form from "./pages/Location_Form";
@@ -10,32 +10,29 @@ import Friend_Request from "./pages/Friend_Request";
 import Pending_Requests from "./pages/Pending_Requests";
 import View_Friends from "./pages/View_Friends";
 
-
 function App() {
   const clientId =
     "851115207315-ffolu07jdpq965qoabrn3nube0ol4v7m.apps.googleusercontent.com";
   return (
     <GoogleOAuthProvider clientId={clientId}>
       <AccountProvider>
+        <BrowserRouter>
+          <div>
+            <Navbar />
+            <Routes>
+              <Route path="/" />
+            </Routes>
+          </div>
+        </BrowserRouter>
 
-      <BrowserRouter>
-      <div>
-        <Navbar/>
-        <Routes>
-          <Route path="/"/>
-        </Routes>
-      </div>
-    </BrowserRouter>
-       
-      <BrowserRouter>
-       
+        <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Desk />} /> 
+            <Route path="/" element={<Desk />} />
             <Route path="/Location_Form" element={<Location_Form />} />
             <Route path="/Friend_Request" element={<Friend_Request />} />
             <Route path="/Pending_Requests" element={<Pending_Requests />} />
             <Route path="/View_Friends" element={<View_Friends />} />
-            <Route path="/profile" element={<InfoDrawer open={true}/>} />
+            <Route path="/profile" element={<InfoDrawer open={true} />} />
           </Routes>
         </BrowserRouter>
         {/* <Messenger /> */}
@@ -45,7 +42,6 @@ function App() {
 }
 
 export default App;
-
 
 // function App() {
 //   const clientId =
