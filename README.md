@@ -7,8 +7,7 @@ Node.js, Express, React.js, JavaScript, Sockets, MongoDB
 
 ## Presentation Link:
 (https://docs.google.com/presentation/d/1QoVh5PKBHUWgAUoa7s96UvzMdhLjszKx/edit?usp=sharing&ouid=115993498491907184374&rtpof=true&sd=true)
-## Video Link:
-(https://youtu.be/yzfH87m8hHs)
+
 ## Description: CoDrive is a ride-sharing platform that aims to connect riders who are traveling from one destination to another with poolers who are looking for a ride in the same direction. The platform allows users to create a profile, search for rides, and book a seat with a driver who is heading in the same direction as them.
 CoDrive aims to solve several problems for road travelers, such as reducing travel costs, reducing traffic congestion, and lowering carbon emissions. By sharing a ride with others, users can split the cost of fuel and tolls, reducing the overall cost of travel. Additionally, by reducing the number of cars on the road, CoDrive aims to reduce traffic congestion, making travel faster and more efficient. Finally, by sharing a ride, CoDrive hopes to reduce the carbon emissions associated with travel, promoting a more sustainable mode of transportation.
 
@@ -20,10 +19,9 @@ CoDrive aims to solve several problems for road travelers, such as reducing trav
 4. -[Risheek Verma](https://github.com/https://github.com/risheekv)
 
 ## Overview
-1. Login using Google Authentication (react-oauth/google)
+1. Login using JWT
 2. Users will be able to add friends and request nearby riding friends to share their rides
-3. Riders will be given option to accept request made by pooler
-4. Once the request from the pooler is accepted by the rider, the chat feature will be enabled between them.
+3. Riders will be given option to accept request made by pooler.
 
 ## Features
 1.
