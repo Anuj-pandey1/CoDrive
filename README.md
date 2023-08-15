@@ -32,12 +32,13 @@ CoDrive aims to solve several problems for road travelers, such as reducing trav
 > For both riders and poolers, the distance between their source and destination is calculated
 > Both the distances are compared, the rider is informed about the buffer distance and is accordingly made request to accept pooler
 
-2.
+## Future goals
+1.
 > If a user travels from A to B with his car and another user wants to travel 
 > from C to D which lies in between A and B at different times then our app would suggest a dedicated time 
 > to each user to start their journey so that they can reach their destination in the best possible way.
-
-3.
+2.
+> 
 > If a group of people have same destination but different starting point and have different type of vehicles 
 > then the algorithm of our app will suggest which person should drive with their vehicle and which should do carpool so that 
 > they can reach their destination with most efficient fuel cost.
